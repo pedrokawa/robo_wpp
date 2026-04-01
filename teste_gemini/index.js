@@ -14,7 +14,7 @@ const num_wpp = "554799402411@c.us";
 
 async function saveExcel(dados){
 
-    const pastaDestino = 'C:\\Users\\PAV011\\TECH\\robo_excel_medicao';
+    const pastaDestino = './Relatorios';
 
     if (!fs.existsSync(pastaDestino)){
         fs.mkdirSync(pastaDestino, { recursive: true })
@@ -127,7 +127,8 @@ async function extrairDadosImg(base64Data, mimeType) {
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: '/usr/bin/chromium',
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     }
 });
 

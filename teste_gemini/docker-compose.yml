@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  bot-whatsapp:
+    build: .
+    container_name: robo_producao
+    restart: unless-stopped # Se o bot der erro, o Docker reinicia ele sozinho
+    volumes:
+      - ./.wwebjs_auth:/app/.wwebjs_auth # Salva sua sessão do Zap
+      - ./Relatorios:/app/Relatorios # Salva as planilhas do Excel do lado de fora!
