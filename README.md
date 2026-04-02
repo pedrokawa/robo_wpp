@@ -1,3 +1,3 @@
 Automatização para extração de dados em Excel integrando WhatsApp Cloud API e Gemini AI.
 
-Robô programado para rodar 7:00 da manhã todos os dias. 
+Robô programado para extrair dados e alimentar planilha automaticamente. 
