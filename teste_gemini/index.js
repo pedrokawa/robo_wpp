@@ -9,8 +9,16 @@ import qrcode from 'qrcode-terminal';
 const { Client, LocalAuth } = whatsapp;
 //chave api
 const genAI = new GoogleGenerativeAI("AIzaSyDjf-9MW8uj-81mLC2RrTazoCqlsYgTa3Q");
-//num operador
-const num_wpp = "554799402411@c.us";
+//num operadores
+const num_wpp = [
+    '554799402411@c.us', // pedro
+    '76897614569492@lid', // apontador
+    '113760899465453@lid' // ney sinalizacao
+];
+//id grupo
+// const grupoPermitido = [
+//     '',
+// ]
 
 async function saveExcel(dados){
 
@@ -148,9 +156,14 @@ client.on('message', async msg => {
 
     try{
 
+        if(!num_wpp.includes(msg.from)) {
+            console.log(`\nMensagem recebida de ${msg.from}, mas este número não é autorizado a enviar fotos. Ignorando...`);
+            return;
+        }
+
         console.log('\nNova mensagem recebida, analisando...');
 
-        if(msg.hasMedia && msg.from === num_wpp) {
+        if(msg.hasMedia) {
             console.log('\nNova foto do relatório recebida...');
 
             const media = await msg.downloadMedia();
