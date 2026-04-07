@@ -163,9 +163,9 @@ client.on('message', async msg => {
                         const salvoSucesso = await saveExcel(dadosExtraidos);
 
                         if(salvoSucesso) {
-                            msg.reply("Relatório recebido e planilha atualizada, obrigado!");
+                            client.sendMessage(msg.from,"Relatório recebido e planilha atualizada, obrigado!");
                         } else {
-                            msg.reply('\nOps! A planilha de destino está aberta, por favor feche e tente novamente.')
+                            client.sendMessage(msg.from,'Ops! A planilha de destino está aberta, por favor feche e tente novamente.')
                         }
                     }
             }
@@ -173,7 +173,7 @@ client.on('message', async msg => {
 
     } catch (error) {
         console.error("\nOcorreu um erro inesperado...", error.message);
-        msg.reply("\nTive um problema interno, contate o suporte.")
+        client.sendMessage(msg.from,"\nTive um problema interno, contate o suporte.")
     }
 
 })
