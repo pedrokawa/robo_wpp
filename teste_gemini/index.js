@@ -85,12 +85,13 @@ async function extrairDadosImg(base64Data, mimeType) {
     1. A caligrafia na coluna "Faixa" pode parecer "SCL", mas o correto no jargão da rodovia é "SUL". Sempre que ler "SCL" ou parecido, converta para "SUL".
     2. O campo "sentido" no JSON deve ser a apenas a coluna "Faixa". Exemplo: "SUL" ou "NORTE".
     3. Trate os números com atenção, mantendo as vírgulas originais ou convertendo para pontos decimais.
+    4. Nos campos de km, mantenha o formato numérico, sem o sinal de '+', mesmo que haja variações na escrita (ex: "216.570" ou "216+570" devem ser convertidos para 216570).
     
     O formato esperado de cada objeto dentro do array deve ser estruturado desta forma:
     [
       {
-        "km inicial": "ex: 216+570",
-        "km final": "ex: 216+795",
+        "km inicial": "ex: 216570",
+        "km final": "ex: 216795",
         "sentido": "SUL",
         "extensão": "215",
         "largura": "2.30",
