@@ -2,13 +2,14 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from 'fs';
 import path from 'path';
 import ExcelJS from 'exceljs';
+import 'dotenv/config';
 
 import whatsapp from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 
 const { Client, LocalAuth } = whatsapp;
 //chave api
-const genAI = new GoogleGenerativeAI("AIzaSyDjf-9MW8uj-81mLC2RrTazoCqlsYgTa3Q");
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 //num operadores
 const num_wpp = [
     '554799402411@c.us', // pedro
@@ -80,7 +81,7 @@ async function saveExcel(dados){
 
 async function extrairDadosImg(base64Data, mimeType) {
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
 
     const prompt = `
     Você é um assistente especialista em extração de dados logísticos e de produção de rodovias.
@@ -136,7 +137,9 @@ async function extrairDadosImg(base64Data, mimeType) {
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        executablePath: '/usr/bin/chromium',
+
+        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+        // executablePath: '/usr/bin/chromium',
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     }
 });
