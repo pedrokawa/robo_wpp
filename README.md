@@ -1,3 +1,11 @@
-Automatização para extração de dados em Excel integrando WhatsApp Cloud API e Gemini AI.
+# Robô PAV
 
-Robô programado para extrair dados e alimentar planilha automaticamente. 
+Bot construido para solucionar o problema das medições e relatórios em campo, integrando API com WhatsApp e prompts de comando para Inteligência Artificial.
+
+## 🚀 Tecnologias Utilizadas
+
+- **JavaScript**
+- **Gemini** (IA)
+- **WhatsApp API**
+- **XLSX Office** 
+
