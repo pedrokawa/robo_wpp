@@ -137,9 +137,8 @@ async function extrairDadosImg(base64Data, mimeType) {
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-
-        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        // executablePath: '/usr/bin/chromium',
+        // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+        executablePath: '/usr/bin/chromium',
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     }
 });
