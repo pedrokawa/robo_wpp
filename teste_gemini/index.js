@@ -130,13 +130,14 @@ async function extrairDadosImg(base64Data, mimeType) {
 
 }
 
+const isLinux = process.platform === 'linux';
+
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        // // executablePath: '/usr/bin/chromium',
-        // args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-        headles: false
+        executablePath: isLinux ? '/usr/bin/chromium' : undefined,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+        headless: isLinux ? true : false
     }
 });
 
