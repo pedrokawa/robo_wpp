@@ -7,19 +7,15 @@ import 'dotenv/config';
 import whatsapp from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 
-const { Client, LocalAuth } = whatsapp;
+const { Client, LocalAuth, MessageMedia } = whatsapp;
 //chave api
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+const genAI = new GoogleGenerativeAI("AIzaSyCSFrp0bFgtlaxraUArTIWAOrxqAUhYuw0");
 //num operadores
 const num_wpp = [
-    '554799402411@c.us', // pedro
+    '20611581640794@lid', // pedro
     '76897614569492@lid', // apontador
     '113760899465453@lid' // ney sinalizacao
 ];
-//id grupo
-// const grupoPermitido = [
-//     '',
-// ]
 
 async function saveExcel(dados){
 
@@ -67,7 +63,7 @@ async function saveExcel(dados){
 
         await workbook.xlsx.writeFile(nomeArq);
         console.log(`Dados salvos com sucesso na planilha: ${nomeArq}`);
-        return true;
+        return nomeArq;
     } catch (error) {
 
         if(error.code === 'EBUSY') {
@@ -75,7 +71,7 @@ async function saveExcel(dados){
         } else {
             console.error('\nErro desconhecido ao salvar no Excel: ', error);
         }
-        return false;
+        return null;
     }
 }
 
@@ -138,8 +134,9 @@ const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
         // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        executablePath: '/usr/bin/chromium',
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+        // // executablePath: '/usr/bin/chromium',
+        // args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+        headles: false
     }
 });
 
@@ -175,10 +172,19 @@ client.on('message', async msg => {
 
                     if (dadosExtraidos) {
                         console.log('\nDados lidos com sucesso. Injetando...');
-                        const salvoSucesso = await saveExcel(dadosExtraidos);
+                        const caminhoPlanilhaSalva = await saveExcel(dadosExtraidos);
 
-                        if(salvoSucesso) {
-                            client.sendMessage(msg.from,"Relatório recebido e planilha atualizada, obrigado!");
+                        if(caminhoPlanilhaSalva) {
+                            console.log('\nEnviando planilha de volta para o WhatsApp...');
+                            const planilhaMedia = MessageMedia.fromFilePath(caminhoPlanilhaSalva);
+
+                            await msg.reply(planilhaMedia, undefined, {
+                                sendMediaAsDocument: true,
+                                caption: 'Planilha atualizada com os dados extraídos do relatório em campo.'
+                            });
+
+                            console.log('\n Planilha enviada, bot conectado e aguardando novas fotos...');
+                            
                         } else {
                             client.sendMessage(msg.from,'Ops! A planilha de destino está aberta, por favor feche e tente novamente.')
                         }
