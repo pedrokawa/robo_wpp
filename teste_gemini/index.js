@@ -9,7 +9,7 @@ import qrcode from 'qrcode-terminal';
 
 const { Client, LocalAuth, MessageMedia } = whatsapp;
 //chave api
-const genAI = new GoogleGenerativeAI("AIzaSyCSFrp0bFgtlaxraUArTIWAOrxqAUhYuw0");
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 //num operadores
 const num_wpp = [
     '20611581640794@lid', // pedro
